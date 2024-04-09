@@ -1,6 +1,7 @@
 ==================
 ### Assignment 1
 ==================
+
 This is an individual school project of subject "Advanced Database" from my university MMU. 
 
 It is about designing and implementing an operational data store and a data warehouse with an ETL (Extract, Transform, Load) scheme for the Faculty of Computing and Informatics (FCI) at Multimedia University. 
@@ -13,9 +14,11 @@ The sql queries can be found in folder "sql".
 
 The output is in txt files placed under "output-text".
 
+
 ==================
 ### Assignment 2
 ==================
+
 Add on another assignment for this subject "Advanced Database". 
 
 This assignment is an individual report-based assignment in which two information systems for local clinic are designed based on the requirements. 
