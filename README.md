@@ -14,6 +14,8 @@ The sql queries can be found in folder *sql*.
 
 The output is in txt files placed under *output-text*.
 
+This assignment scores 29.5 out of 32.5 (2.5 in 32.5 is bonus mark, full mark is actually 30), so hopefully it shall be a helpful guide for the beginner who is interested in university data warehouse design.
+
 
 ==================
 ### Assignment 2
