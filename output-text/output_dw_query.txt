@@ -1,0 +1,158 @@
+CONNECT TO DB2
+
+   Database Connection Information
+
+ Database server        = DB2/NT64 11.5.6.0
+ SQL authorization ID   = USER
+ Local database alias   = DB2
+
+
+SELECT Course_Code, Assessment_Mark_Grade, COUNT(Assessment_Mark_Grade) AS Number_Of_Grade FROM Fact_Assessment_Mark GROUP BY Course_Code, Assessment_Mark_Grade ORDER BY Course_Code, Assessment_Mark_Grade
+
+COURSE_CODE ASSESSMENT_MARK_GRADE NUMBER_OF_GRADE
+----------- --------------------- ---------------
+TCP1101     A                                  12
+TCP1101     B                                  14
+TCP1101     C                                   4
+TCT1201     A                                   8
+TCT1201     B                                  19
+TCT1201     C                                   2
+TCT1201     F                                   1
+TIS1101     A                                  10
+TIS1101     B                                  16
+TIS1101     C                                   4
+TMA1101     A                                   7
+TMA1101     B                                  16
+TMA1101     C                                   5
+TMA1101     F                                   2
+TMA1201     A                                  10
+TMA1201     B                                  15
+TMA1201     C                                   5
+TMA1301     A                                  12
+TMA1301     B                                  14
+TMA1301     C                                   2
+TMA1301     F                                   2
+TPT1101     A                                  10
+TPT1101     B                                  17
+TPT1101     C                                   2
+TPT1101     F                                   1
+TPT1201     A                                  14
+TPT1201     B                                  16
+TSN1101     A                                   9
+TSN1101     B                                  19
+TSN1101     C                                   2
+
+  30 record(s) selected.
+
+
+EXPORT TO C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query1.csv OF DEL MODIFIED BY NOCHARDEL SELECT Course_Code, Assessment_Mark_Grade, COUNT(Assessment_Mark_Grade) AS Number_Of_Grade FROM Fact_Assessment_Mark GROUP BY ROLLUP(Course_Code, Assessment_Mark_Grade) ORDER BY Course_Code, Assessment_Mark_Grade
+SQL3104N  The Export utility is beginning to export data to file 
+"C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query1.csv".
+
+SQL3105N  The Export utility has finished exporting "40" rows.
+
+
+Number of rows exported: 40
+
+
+SELECT l.Lecturer_Name, c.Course_Name, a.Course_Code, COUNT(Assessment_Mark_Grade) AS Number_Of_Students_Fail FROM Fact_Assessment_Mark a, Dim_Lecturer l, Dim_Course c WHERE (l.Lecturer_ID = a.Lecturer_ID AND c.Course_Code = a.Course_Code AND Assessment_Mark_Grade = 'F') GROUP BY l.Lecturer_Name, c.Course_Name, a.Course_Code
+
+LECTURER_NAME                            COURSE_NAME                                        COURSE_CODE NUMBER_OF_STUDENTS_FAIL
+---------------------------------------- -------------------------------------------------- ----------- -----------------------
+Hj Che Firdaus bin Syed Jaman            Calculus                                           TMA1101                           2
+Hj Che Firdaus bin Syed Jaman            Computational Methods                              TMA1301                           2
+Kumar Marimuthu A/L Puspanathan          Professional Development                           TPT1101                           1
+Choong Jeng Key                          Object Oriented Programming & Data Structures      TCT1201                           1
+
+  4 record(s) selected.
+
+
+EXPORT TO C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query2.csv OF DEL MODIFIED BY NOCHARDEL SELECT l.Lecturer_Name, c.Course_Name, a.Course_Code, COUNT(Assessment_Mark_Grade) AS Number_Of_Students_Fail FROM Fact_Assessment_Mark a, Dim_Lecturer l, Dim_Course c WHERE (l.Lecturer_ID = a.Lecturer_ID AND c.Course_Code = a.Course_Code AND Assessment_Mark_Grade = 'F') GROUP BY l.Lecturer_Name, c.Course_Name, a.Course_Code
+SQL3104N  The Export utility is beginning to export data to file 
+"C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query2.csv".
+
+SQL3105N  The Export utility has finished exporting "4" rows.
+
+
+Number of rows exported: 4
+
+
+SELECT Semester_ID, Course_Code, ROUND(AVG(Assessment_Mark_Total),2) AS Average_Assessment_Mark FROM Fact_Assessment_Mark GROUP BY Semester_ID, Course_Code
+
+SEMESTER_ID COURSE_CODE AVERAGE_ASSESSMENT_MARK                   
+----------- ----------- ------------------------------------------
+SEM1        TCP1101                                          74.17
+SEM1        TMA1101                                          69.63
+SEM1        TMA1201                                          74.43
+SEM2        TIS1101                                          74.77
+SEM2        TMA1301                                          74.83
+SEM2        TSN1101                                          74.27
+SEM3        TCT1201                                          74.23
+SEM3        TPT1101                                          73.73
+SEM3        TPT1201                                          77.23
+
+  9 record(s) selected.
+
+
+EXPORT TO C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query3.csv OF DEL MODIFIED BY NOCHARDEL SELECT Semester_ID, Course_Code, ROUND(AVG(Assessment_Mark_Total),2) AS Average_Assessment_Mark FROM Fact_Assessment_Mark GROUP BY Semester_ID, Course_Code
+SQL3104N  The Export utility is beginning to export data to file 
+"C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query3.csv".
+
+SQL3105N  The Export utility has finished exporting "9" rows.
+
+
+Number of rows exported: 9
+
+
+SELECT Semester_ID, Course_Code, MAX(Assessment_Mark_Total) AS Highest_Assessment_Mark, MIN(Assessment_Mark_Total) AS Lowest_Assessment_Mark FROM Fact_Assessment_Mark GROUP BY Semester_ID, Course_Code
+
+SEMESTER_ID COURSE_CODE HIGHEST_ASSESSMENT_MARK LOWEST_ASSESSMENT_MARK
+----------- ----------- ----------------------- ----------------------
+SEM1        TCP1101                          94                     53
+SEM1        TMA1101                          94                     31
+SEM1        TMA1201                          96                     53
+SEM2        TIS1101                          94                     50
+SEM2        TMA1301                          96                     34
+SEM2        TSN1101                          91                     58
+SEM3        TCT1201                          94                     37
+SEM3        TPT1101                          90                     46
+SEM3        TPT1201                          90                     60
+
+  9 record(s) selected.
+
+
+EXPORT TO C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query4.csv OF DEL MODIFIED BY NOCHARDEL SELECT Semester_ID, Course_Code, MAX(Assessment_Mark_Total) AS Highest_Assessment_Mark, MIN(Assessment_Mark_Total) AS Lowest_Assessment_Mark FROM Fact_Assessment_Mark GROUP BY Semester_ID, Course_Code
+SQL3104N  The Export utility is beginning to export data to file 
+"C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query4.csv".
+
+SQL3105N  The Export utility has finished exporting "9" rows.
+
+
+Number of rows exported: 9
+
+
+SELECT l.Lecturer_Name, COUNT(a.Assessment_Mark_Grade) as Number_Of_Student_Get_A FROM Fact_Assessment_Mark a, Dim_Lecturer l WHERE (l.Lecturer_ID = a.Lecturer_ID AND Assessment_Mark_Grade = 'A') GROUP BY l.Lecturer_Name ORDER BY Lecturer_Name DESC LIMIT 1
+
+LECTURER_NAME                            NUMBER_OF_STUDENT_GET_A
+---------------------------------------- -----------------------
+Siva Kundargal A/L Devasagayam                                14
+
+  1 record(s) selected.
+
+
+EXPORT TO C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query5.csv OF DEL MODIFIED BY NOCHARDEL SELECT l.Lecturer_Name, COUNT(a.Assessment_Mark_Grade) as Number_Of_Student_Get_A FROM Fact_Assessment_Mark a, Dim_Lecturer l WHERE (l.Lecturer_ID = a.Lecturer_ID AND Assessment_Mark_Grade = 'A') GROUP BY l.Lecturer_Name ORDER BY Lecturer_Name DESC LIMIT 1
+SQL3104N  The Export utility is beginning to export data to file 
+"C:\Users\USER\OneDrive\Desktop\ad-dba-sql\query5.csv".
+
+SQL3105N  The Export utility has finished exporting "1" rows.
+
+
+Number of rows exported: 1
+
+
+CONNECT RESET
+DB20000I  The SQL command completed successfully.
+
+TERMINATE
+DB20000I  The TERMINATE command completed successfully.
+
